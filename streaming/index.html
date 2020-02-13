@@ -342,6 +342,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    Logging
+  </a>
+  
+</li>
+      
       
       
       
@@ -453,6 +460,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    Logging
+  </a>
+  
+</li>
+      
       
       
       
@@ -486,6 +500,7 @@ But if you want to gather, process and react to data more frequently (e.g. in-pl
 <li>There are no data overheads as you would have with polling / HTTP.</li>
 <li>This results in faster data and less CPU from your machine (and Betfair's)</li>
 </ul>
+<p>The full docs can be found <a href="https://docs.developer.betfair.com/display/1smk3cen4v3lu3yomq5qye0ni/Exchange+Stream+API">here</a></p>
 <h3 id="market">Market</h3>
 <p>A market stream can be created like so:</p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">queue</span>
@@ -607,6 +622,24 @@ But if you want to gather, process and react to data more frequently (e.g. in-pl
 
 
 <p>The historical stream can be used in the same way as the market/order stream allowing backtesting / market processing.</p>
+<p>It is also possible to return a generator instead which can be easier to use (no threads) and uses less ram:</p>
+<div class="codehilite"><pre><span></span>    <span class="c1"># create historical generator stream, update directory to file location</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">trading</span><span class="o">.</span><span class="n">streaming</span><span class="o">.</span><span class="n">create_historical_generator_stream</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;/tmp/BASIC-1.132153978&quot;</span><span class="p">,</span>
+        <span class="n">listener</span><span class="o">=</span><span class="n">listener</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># create genertaor</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">get_generator</span><span class="p">()</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">market_books</span> <span class="ow">in</span> <span class="n">g</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">market_books</span><span class="p">)</span>
+
+<span class="p">[</span><span class="o">&lt;</span><span class="n">MarketBook</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">..</span>
+</pre></div>
+
+
 <h3 id="snap">Snap</h3>
 <p>Instead of waiting for an update you can snap the listener to get an up to date version of the data.</p>
 <div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">market_books</span> <span class="o">=</span> <span class="n">listener</span><span class="o">.</span><span class="n">snap</span><span class="p">(</span>
@@ -646,6 +679,14 @@ But if you want to gather, process and react to data more frequently (e.g. in-pl
 
 
 <span class="n">custom_listener</span> <span class="o">=</span> <span class="n">MyListener</span><span class="p">()</span>
+</pre></div>
+
+
+<h3 id="logging">Logging</h3>
+<p>In order to debug the stream update the logging level to DEBUG:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 </pre></div>
                 
                   
