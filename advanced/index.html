@@ -299,6 +299,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#locale" class="md-nav__link">
+    Locale
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#session" class="md-nav__link">
     Session
   </a>
@@ -363,6 +370,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#locale" class="md-nav__link">
+    Locale
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#session" class="md-nav__link">
     Session
   </a>
@@ -401,6 +415,24 @@
                 
                 
                 <h1 id="advanced">Advanced</h1>
+<h3 id="locale">Locale</h3>
+<p>Betfair uses slightly different endpoints depending on your country of residence, these can be used by changing the locale on client initialisation:</p>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">trading</span> <span class="o">=</span> <span class="n">betfairlightweight</span><span class="o">.</span><span class="n">APIClient</span><span class="p">(</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">,</span> 
+        <span class="s2">&quot;password&quot;</span><span class="p">,</span> 
+        <span class="n">app_key</span><span class="o">=</span><span class="s2">&quot;app_key&quot;</span><span class="p">,</span> 
+        <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;italy&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>spain</li>
+<li>italy</li>
+<li>romania</li>
+<li>sweden</li>
+<li>australia</li>
+</ul>
 <h3 id="session">Session</h3>
 <p>The client assumes requests is used for the http requests but other clients can be used if required, a session object can be passed to the client:</p>
 <div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
@@ -408,7 +440,6 @@
         <span class="s2">&quot;username&quot;</span><span class="p">,</span> 
         <span class="s2">&quot;password&quot;</span><span class="p">,</span> 
         <span class="n">app_key</span><span class="o">=</span><span class="s2">&quot;app_key&quot;</span><span class="p">,</span> 
-        <span class="n">certs</span><span class="o">=</span><span class="s2">&quot;/certs&quot;</span><span class="p">,</span> 
         <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
