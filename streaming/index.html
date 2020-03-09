@@ -688,6 +688,12 @@ But if you want to gather, process and react to data more frequently (e.g. in-pl
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 </pre></div>
+
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>By default <code>max_latency</code> is set to 0.5, this means a warning will be logged if the latency between the publishTime and your machines time is greater than this number. Often you will need to check that your clock is up to date, however this can be removed by setting <code>max_latency=None</code> when initializing the listener.</p>
+</div>
                 
                   
                 
