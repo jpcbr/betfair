@@ -306,6 +306,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nemid-login" class="md-nav__link">
+    NEMID Login
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#session" class="md-nav__link">
     Session
   </a>
@@ -384,6 +391,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nemid-login" class="md-nav__link">
+    NEMID Login
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#session" class="md-nav__link">
     Session
   </a>
@@ -447,6 +461,33 @@
 <li>sweden</li>
 <li>australia</li>
 </ul>
+<h3 id="nemid-login">NEMID Login</h3>
+<p>Danish residents are restricted in how they login due to NemID requirements, this can be handled by replicating the login flow:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">betfairlightweight</span>
+
+<span class="n">trading</span> <span class="o">=</span> <span class="n">betfairlightweight</span><span class="o">.</span><span class="n">APIClient</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="n">app_key</span><span class="o">=</span><span class="s2">&quot;app_key&quot;</span><span class="p">)</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">trading</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="n">trading</span><span class="o">.</span><span class="n">login_interactive</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">trading</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+        <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="n">trading</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+        <span class="s2">&quot;redirectMethod&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="n">trading</span><span class="o">.</span><span class="n">app_key</span><span class="p">,</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.betfair.com&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;submitForm&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">session_token</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+    <span class="s2">&quot;ssoid=(.*?);&quot;</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Set-Cookie&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">trading</span><span class="o">.</span><span class="n">set_session_token</span><span class="p">(</span><span class="n">session_token</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">trading</span><span class="o">.</span><span class="n">betting</span><span class="o">.</span><span class="n">list_event_types</span><span class="p">())</span>
+</pre></div>
+
+
 <h3 id="session">Session</h3>
 <p>The client assumes requests is used for the http requests but other clients can be used if required, a session object can be passed to the client:</p>
 <div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
@@ -498,6 +539,12 @@
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_datetime_updated</span>
 <span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">27</span> <span class="mi">09</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mf">32.984387</span>
+</pre></div>
+
+
+<p>Raw requests response object:</p>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_response</span>
+<span class="o">&lt;</span><span class="n">Response</span> <span class="p">[</span><span class="mi">200</span><span class="p">]</span><span class="o">&gt;</span>
 </pre></div>
 
 
